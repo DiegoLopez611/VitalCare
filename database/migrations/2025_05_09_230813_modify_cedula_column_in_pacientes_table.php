@@ -11,9 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('pais', function (Blueprint $table) {
-            $table->id();
-            $table->timestamps();
+        Schema::table('pacientes', function (Blueprint $table) {
+            $table->string('cedula', 20)->change();
         });
     }
 
@@ -22,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('pais');
+        Schema::table('pacientes', function (Blueprint $table) {
+            $table->string('cedula', 10)->change(); 
+        });
     }
 };

@@ -60,7 +60,7 @@ class MedicoController extends Controller
         ]);
 
         // Redirigir con mensaje de éxito
-        return redirect()->route('medicos.index')->with('success', 'Paciente registrado correctamente.');
+        return redirect()->route('medicos.index')->with('success', 'Medico registrado correctamente.');
     }
 
     /**

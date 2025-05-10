@@ -17,6 +17,7 @@ class Paciente extends Model
     const PRIMER_APELLIDO = 'primer_apellido';
     const SEGUNDO_APELLIDO = 'segundo_apellido';
     const DIRECCION = 'direccion';
+    const ESTADO = 'estado';
 
     protected $fillable = [
         self::CEDULA,
@@ -26,6 +27,7 @@ class Paciente extends Model
         self::SEGUNDO_NOMBRE,
         self::PRIMER_APELLIDO,
         self::SEGUNDO_APELLIDO,
-        self::DIRECCION
+        self::DIRECCION,
+        self::ESTADO
     ];
 }

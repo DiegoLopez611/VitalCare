@@ -19,6 +19,7 @@ class Medico extends Model
     const DIRECCION = 'direccion';
     const LICENCIA_MEDICA = 'licencia_medica';
     const FECHA_INICIO = 'fecha_inicio';
+    const ESTADO = 'estado';
 
     protected $fillable = [
         self::CEDULA,
@@ -30,6 +31,7 @@ class Medico extends Model
         self::SEGUNDO_APELLIDO,
         self::DIRECCION,
         self::LICENCIA_MEDICA,
-        self::FECHA_INICIO
+        self::FECHA_INICIO,
+        self::ESTADO
     ];
 }

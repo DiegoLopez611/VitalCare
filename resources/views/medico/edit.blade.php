@@ -115,7 +115,7 @@
                                 Cancelar
                             </a>
                             <x-button type="submit" class="bg-indigo-600 hover:bg-indigo-700">
-                                Actualizar Paciente
+                                Actualizar Medico
                             </x-button>
                         </div>
                     </form>

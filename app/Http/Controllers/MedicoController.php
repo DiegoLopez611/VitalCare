@@ -2,20 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Paciente;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class PacienteController extends Controller
+class MedicoController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $pacientes = DB::table('pacientes')->paginate(10);
-        return view('paciente.index', compact('pacientes'));
+        $medicos = DB::table('medicos')->paginate(10);
+        return view('medico.index', compact('medicos'));
     }
 
     /**
@@ -23,7 +22,7 @@ class PacienteController extends Controller
      */
     public function create()
     {
-        return view('paciente.create');
+        return view('medico.create');
     }
 
     /**
@@ -39,10 +38,12 @@ class PacienteController extends Controller
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'string',
             'direccion'=>'required|string',
-            'fecha_nacimiento' => 'required'
+            'licencia_medica' => 'required|string',
+            'fecha_nacimiento' => 'required',
+            'fecha_inicio' =>'required'
         ]);
 
-        DB::table('pacientes')->insert([
+        DB::table('medicos')->insert([
             'cedula' => $request->input('cedula'),
             'fecha_nacimiento' => $request->input('fecha_nacimiento'),
             'email' => $request->input('email'),
@@ -50,6 +51,8 @@ class PacienteController extends Controller
             'segundo_nombre' => $request->input('segundo_nombre'),
             'primer_apellido' => $request->input('primer_apellido'),
             'segundo_apellido' => $request->input('segundo_apellido'),
+            'fecha_inicio' => $request->input('fecha_inicio'),
+            'licencia_medica' => $request->input('licencia_medica'),
             'direccion' => $request->input('direccion'),
             'estado' => 'ACTIVO',
             'created_at' => now(),
@@ -57,13 +60,13 @@ class PacienteController extends Controller
         ]);
 
         // Redirigir con mensaje de éxito
-        return redirect()->route('pacientes.index')->with('success', 'Paciente registrado correctamente.');
+        return redirect()->route('medicos.index')->with('success', 'Paciente registrado correctamente.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Paciente $paciente)
+    public function show(string $id)
     {
         //
     }
@@ -71,25 +74,27 @@ class PacienteController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Request $request, $id)
+    public function edit(string $id)
     {
-        $paciente = DB::table('pacientes')->where('id', $id)->first();
-        return view('paciente.edit', compact('paciente'));
+        $medico = DB::table('medicos')->where('id', $id)->first();
+        return view('medico.edit', compact('medico'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, string $id)
     {
-        $request->validate([
+         $request->validate([
             'cedula'=>'required|string',
             'email'=>'required|email',
             'primer_nombre'=>'required|string',
             'segundo_nombre'=>'string',
             'primer_apellido'=>'required|string',
             'segundo_apellido'=>'string',
-            'direccion'=>'required|string'
+            'direccion'=>'required|string',
+            'licencia_medica' => 'required|string',
+            'fecha_nacimiento' => 'required',
         ]);
 
         $datosActualizados = [
@@ -99,22 +104,24 @@ class PacienteController extends Controller
             'primer_apellido' => $request->input('primer_apellido'),
             'segundo_apellido' => $request->input('segundo_apellido'),
             'direccion' => $request->input('direccion'),
+            'licencia_medica' => $request->input('licencia_medica'),
             'updated_at' => now(),
         ];
 
         // Ejecutar la actualización
-        DB::table('pacientes')->where('id', $id)->update($datosActualizados);
+        DB::table('medicos')->where('id', $id)->update($datosActualizados);
 
         // Redirigir con mensaje de éxito
-        return redirect()->route('pacientes.index')->with('success', 'Paciente actualizado correctamente.');
+        return redirect()->route('medicos.index')->with('success', 'Medico actualizado correctamente.');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Request $request, $id)
+    public function destroy(string $id)
     {
-        DB::table('pacientes')->where('id', $id)->update(['estado' => 'INACTIVO']);
-        return redirect()->route('pacientes.index')->with('success', 'Paciente eliminado correctamente.');
+        DB::table('medicos')->where('id', $id)->update(['estado' => 'INACTIVO']);
+        return redirect()->route('medicos.index')->with('success', 'Medico eliminado correctamente.');
+    
     }
 }

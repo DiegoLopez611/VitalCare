@@ -13,6 +13,16 @@ return new class extends Migration
     {
         Schema::create('medicos', function (Blueprint $table) {
             $table->id();
+            $table->string('cedula', 20)->unique();
+            $table->date('fecha_nacimiento');
+            $table->string('email');
+            $table->string('primer_nombre');
+            $table->string('segundo_nombre');
+            $table->string('primer_apellido');
+            $table->string('segundo_apellido');
+            $table->string('direccion');
+            $table->string('licencia_medica');
+            $table->date('fecha_inicio');
             $table->timestamps();
         });
     }
